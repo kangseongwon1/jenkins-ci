@@ -92,11 +92,11 @@ pipeline{
             post {
                     failure {
                       echo 'K8S Manifest Update failure !'
+                      echo 'hello'
+                      echo '${WORKSPACE}'
                     }
                     success {
                       echo 'K8S Manifest Update success !'
-                      echo 'hello'
-                      echo '${WORKSPACE}'
                     }
             }
         }
