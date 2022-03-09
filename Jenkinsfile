@@ -77,7 +77,7 @@ pipeline{
                 dir("gitOpsRepo")
                 {
                     git branch: "main",
-                    credentialsId: 'githubCredential',
+                    credentialsId: githubCredential,
                     url: 'https://github.com/skarltjr/kube-manifests'
                 }
 
