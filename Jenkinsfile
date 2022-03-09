@@ -49,18 +49,14 @@ pipeline{
             }
         }
         stage('Docker Image Push') {
-//             steps {
-//                 withDockerRegistry([ credentialsId: dockerHubRegistryCredential, url: "" ]) {
-//                     sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
-//                     sh "docker push ${dockerHubRegistry}:latest"
-//
-//                     sleep 10 /* Wait uploading */
-//                 }
-//             }
             steps {
-                docker.withRegistry('https://registry.hub.docker.com',dockerHubRegistryCredential){
-                    sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
-                    sh "docker push ${dockerHubRegistry}:latest"
+                script{
+                    withDockerRegistry([ credentialsId: dockerHubRegistryCredential, url: "" ]) {
+                        sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
+                        sh "docker push ${dockerHubRegistry}:latest"
+
+                        sleep 10 /* Wait uploading */
+                    }
                 }
             }
             post {
