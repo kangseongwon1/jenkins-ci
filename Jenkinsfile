@@ -9,7 +9,6 @@ pipeline{
     stages {
         stage('check out application git branch'){
             steps {
-                git credentialsId: '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'
                     url: 'https://github.com/skarltjr/GKE_K8s_CI_CD',
                     branch: 'main'
             }
