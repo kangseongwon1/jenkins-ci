@@ -93,7 +93,7 @@ pipeline{
                     failure {
                       echo 'K8S Manifest Update failure !'
                       echo 'hello'
-                      echo '${WORKSPACE}'
+                      echo "${PWD}"
                     }
                     success {
                       echo 'K8S Manifest Update success !'
