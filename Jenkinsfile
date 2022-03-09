@@ -50,10 +50,10 @@ pipeline{
         }
         stage('Docker Image Push') {
             steps {
-                script {
-                    docker.withRegistry(credentialsId: dockerHubRegistryCredential,url: 'https://registry.hub.docker.com')
+                withDockerRegistry([ credentialsId: dockerHubRegistryCredential, url: "" ]) {
                     sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
                     sh "docker push ${dockerHubRegistry}:latest"
+
                     sleep 10 /* Wait uploading */
                 }
             }
