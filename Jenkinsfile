@@ -73,7 +73,8 @@ pipeline{
         stage('K8S Manifest Update') {
             steps {
                 checkout scm
-                sh "cd /kube"
+                echo "$(pwd)"
+                echo "hello"
                 sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/g' deployment.yaml"
                 sh "git add deployment.yaml"
                 sh "git commit -m '[UPDATE] my-app ${currentBuild.number} image versioning'"
