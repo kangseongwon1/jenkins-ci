@@ -96,7 +96,7 @@ pipeline{
                     success {
                       echo 'K8S Manifest Update success !'
                       echo 'hello'
-                      pwd
+                      echo '${WORKSPACE}'
                     }
             }
         }
