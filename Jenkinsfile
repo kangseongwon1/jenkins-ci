@@ -70,7 +70,27 @@ pipeline{
                     }
             }
         }
+        stage('K8S Manifest Update') {
+            steps {
+                checkout scm
 
+                sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/g' deployment.yaml"
+                sh "git add deployment.yaml"
+                sh "git commit -m '[UPDATE] my-app ${currentBuild.number} image versioning'"
+                sshagent(credentials: ['{test-private-key}']) {
+                    sh "git remote set-url origin https://github.com/skarltjr/ci_cd_test"
+                    sh "git push -u origin main"
+                 }
+            }
+            post {
+                    failure {
+                      echo 'K8S Manifest Update failure !'
+                    }
+                    success {
+                      echo 'K8S Manifest Update success !'
+                    }
+            }
+        }
 
     }
 }
