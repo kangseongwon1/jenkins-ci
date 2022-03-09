@@ -9,8 +9,7 @@ pipeline{
     stages {
         stage('check out application git branch'){
             steps {
-                    url: 'https://github.com/skarltjr/GKE_K8s_CI_CD',
-                    branch: 'main'
+                checkout scm
             }
             post {
                 failure {
