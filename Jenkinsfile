@@ -4,6 +4,7 @@ pipeline{
     environment {
         dockerHubRegistry = 'skarltjr/k8s'
         dockerHubRegistryCredential = 'docker-hub'
+        dockerImage = docker.build registry + ":$BUILD_NUMBER"
     }
 
     stages {
@@ -49,14 +50,12 @@ pipeline{
             }
         }
         stage('Docker Image Push') {
-            steps {
-                withDockerRegistry([ credentialsId: dockerHubRegistryCredential, url: "" ]) {
-                    sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
-                    sh "docker push ${dockerHubRegistry}:latest"
-
-                    sleep 10 /* Wait uploading */
-                }
-            }
+              steps{
+                script {
+                  docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                  }
+              }
             post {
                     failure {
                       echo 'Docker Image Push failure !'
