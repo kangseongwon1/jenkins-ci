@@ -81,6 +81,7 @@ pipeline{
                     url: 'https://github.com/skarltjr/kube-manifests'
                 }
 
+                sh "cd /home/jenkins/workspace/k8s-ci/gitOpsRepo"
                 sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/' deployment.yaml"
                 sh "git add deployment.yaml"
                 sh "git commit -m '[UPDATE] my-app ${currentBuild.number} image versioning'"
