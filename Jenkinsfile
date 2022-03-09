@@ -4,6 +4,7 @@ pipeline{
     environment {
         dockerHubRegistry = 'skarltjr/k8s'
         dockerHubRegistryCredential = 'docker-hub'
+        githubCredential = 'github'
     }
 
     stages {
@@ -13,10 +14,10 @@ pipeline{
             }
             post {
                 failure {
-                    echo 'repository clone failure'
+                    echo 'repository checkout failure'
                 }
                 success {
-                    echo 'repository clone success'
+                    echo 'repository checkout success'
                 }
             }
         }
@@ -72,8 +73,13 @@ pipeline{
         }
         stage('K8S Manifest Update') {
             steps {
-                url: 'https://github.com/skarltjr/kube-manifests',
-                branch: 'main'
+                sh 'mkdir -p gitOpsRepo'
+                dir("gitOpsRepo")
+                {
+                    git branch: "main",
+                    credentialsId: 'githubCredential',
+                    url: 'https://github.com/skarltjr/kube-manifests'
+                }
 
                 sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/g' deployment.yaml"
                 sh "git add deployment.yaml"
