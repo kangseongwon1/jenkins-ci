@@ -83,7 +83,7 @@ pipeline{
                     sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/' deployment.yaml"
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
-                    sshagent(credentials: ['6fc3dc24-47c4-4861-a187-2b80a246558e']) {
+                    sshagent(credentials: ['19bdc43b-f3be-4cb9-aa1d-9896f503e3e8']) {
                         sh "git remote set-url origin git@github.com:skarltjr/kube-manifests.git"
                         sh "git push -u origin main"
                     }
