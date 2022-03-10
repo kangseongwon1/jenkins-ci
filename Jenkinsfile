@@ -87,7 +87,7 @@ pipeline{
 //                         sh "git push -u origin main"
 //                     }
 //                 }
-                    echo '{PWD}'
+                    sh 'pwd'
                     git branch: "main",
                     credentialsId: githubCredential,
                     url: 'https://github.com/skarltjr/kube-manifests.git'
