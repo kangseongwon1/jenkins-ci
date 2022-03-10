@@ -85,6 +85,8 @@ pipeline{
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                 }
                 sshagent(credentials: ['be074ed8-81af-4bfb-8d88-684839f588d1']) {
+                    echo '${WORKSPACE}'
+                    echo 'hello'
                     sh "git remote set-url origin https://github.com/skarltjr/kube-manifests"
                     sh "git push -u origin main"
                 }
@@ -92,8 +94,6 @@ pipeline{
             post {
                     failure {
                       echo 'K8S Manifest Update failure !'
-                      echo 'hello'
-                      echo "${WORKSPACE}"
                     }
                     success {
                       echo 'K8S Manifest Update success !'
