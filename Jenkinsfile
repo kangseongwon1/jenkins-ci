@@ -89,7 +89,7 @@ pipeline{
 //                     }
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential,
                                      gitToolName: 'git-tool')]) {
-                        sh "git remote set-url origin git@github.com:skarltjr/kube-manifests.git"
+                        sh "git remote set-url origin https://github.com/skarltjr/kube-manifests"
                         sh "git push -u origin main"
                     }
                 }
