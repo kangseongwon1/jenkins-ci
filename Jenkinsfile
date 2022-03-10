@@ -73,8 +73,8 @@ pipeline{
         }
         stage('K8S Manifest Update') {
             steps {
-                sh 'mkdir -p gitOpsRepo'
-                dir("gitOpsRepo")
+                sh 'mkdir -p gitOpsRepos'
+                dir("gitOpsRepos")
                 {
                     git branch: "main",
                     credentialsId: githubCredential,
@@ -84,7 +84,7 @@ pipeline{
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                 }
                 sshagent(credentials: ['be074ed8-81af-4bfb-8d88-684839f588d1']) {
-                    sh "git remote set-url origin https://github.com/skarltjr/kube-manifests.git"
+                    sh "git remote set-url origin https://github.com/skarltjr/kube-manifests"
                     sh "git push -u origin main"
                 }
             }
