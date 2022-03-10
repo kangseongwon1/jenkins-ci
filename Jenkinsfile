@@ -84,7 +84,7 @@ pipeline{
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                 }
-                sshagent(credentials: ['be074ed8-81af-4bfb-8d88-684839f588d1']) {
+                sshagent(credentials: ['fb274d86-841e-4d8d-941d-13648ad41e8b']) {
                     sh "git remote set-url origin https://github.com/skarltjr/kube-manifests"
                     sh "git push -u origin main"
                 }
