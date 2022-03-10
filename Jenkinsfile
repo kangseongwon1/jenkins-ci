@@ -86,7 +86,7 @@ pipeline{
                 echo '${WORKSPACE}'
                 echo 'hello'
                 sshagent(credentials: ['be074ed8-81af-4bfb-8d88-684839f588d1']) {
-                    sh "git remote set-url origin https://github.com/skarltjr/kube-manifests"
+                    sh "git remote set-url origin git@github.com:skarltjr/k8s-manifests.git"
                     sh "git push -u origin main"
                 }
             }
