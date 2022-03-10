@@ -79,14 +79,13 @@ pipeline{
                     git branch: "main",
                     credentialsId: githubCredential,
                     url: 'https://github.com/skarltjr/kube-manifests'
-                    sh "git init"
                     sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/' deployment.yaml"
                     sh "git add deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
                 }
                 echo '${WORKSPACE}'
                 echo 'hello'
-                sshagent(['be074ed8-81af-4bfb-8d88-684839f588d1']) {
+                sshagent(credentials: ['be074ed8-81af-4bfb-8d88-684839f588d1']) {
                     sh "git remote set-url origin https://github.com/skarltjr/kube-manifests"
                     sh "git push -u origin main"
                 }
