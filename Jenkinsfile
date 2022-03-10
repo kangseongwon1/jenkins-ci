@@ -73,8 +73,8 @@ pipeline{
         }
         stage('K8S Manifest Update') {
             steps {
-                sh 'mkdir -p gitOpsRepos'
-                dir("gitOpsRepos")
+                sh 'mkdir -p gitOpsRepo'
+                dir("gitOpsRepo")
                 {
                     git branch: "main",
                     credentialsId: githubCredential,
