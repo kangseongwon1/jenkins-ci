@@ -73,6 +73,7 @@ pipeline{
         }
         stage('K8S Manifest Update') {
             steps {
+                sh "ls"
                 sh 'mkdir -p gitOpsRepo'
                 dir("gitOpsRepo")
                 {
@@ -87,9 +88,9 @@ pipeline{
 //                         sh "git push -u origin main"
 //                     }
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential, gitToolName: 'git-tool')]) {
-                        sh "git remote set-url origin https://github.com/skarltjr/kube-manifests.git"
                         sh "git config --global user.name \"skarltjr\""
                         sh "git config --global user.email \"kisa0828@naver.com\""
+                        sh "git remote set-url origin https://github.com/skarltjr/kube-manifests.git"
                         sh "git push -u origin main"
                     }
                 }
