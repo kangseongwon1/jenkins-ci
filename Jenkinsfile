@@ -81,7 +81,7 @@ pipeline{
                     credentialsId: githubCredential,
                     url: 'https://github.com/kangseongwon1/kube-manifests.git'
                     sh "git config --global user.email "ksw7734@gmail.com""
-                    sh "git config --global user.name "ksw7734"
+                    sh "git config --global user.name "ksw7734""
                     sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/' Deployment.yaml"
                     sh "git add Deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
