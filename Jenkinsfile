@@ -80,13 +80,12 @@ pipeline{
                     git branch: "main",
                     credentialsId: githubCredential,
                     url: 'https://github.com/kangseongwon1/kube-manifests.git'
+                    sh "git config --global user.email "ksw7734@gmail.com""
+                    sh "git config --global user.name "ksw7734"
                     sh "sed -i 's/k8s:.*\$/k8s:${currentBuild.number}/' Deployment.yaml"
                     sh "git add Deployment.yaml"
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
-//                     sshagent(credentials: ['19bdc43b-f3be-4cb9-aa1d-9896f503e3e8']) {
-//                         sh "git remote set-url origin git@github.com:kangseongwon1/kube-manifests.git"
-//                         sh "git push -u origin main"
-//                     }
+
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential,
                                      gitToolName: 'git-tool')]) {
                         sh "git remote set-url origin https://github.com/kangseongwon1/kube-manifests"
