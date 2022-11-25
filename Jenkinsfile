@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     environment {
-        dockerHubRegistry = 'ksw7734/docker
+        dockerHubRegistry = 'ksw7734/docker'
         dockerHubRegistryCredential = 'docker-hub'
         githubCredential = 'repo-and-hook-access-token-credentials'
     }
